@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProfessoresModel } from '../professores.model';
 import { ProfessoresService } from '../professores.service';
 
 @Component({
@@ -17,14 +18,13 @@ export class ListarComponent implements OnInit {
   //   { id : 2, nome: "Nelson", email: "nelson@grandeporte.com.br" }
   // ];
 
-  professores : any = [];
+  professores : ProfessoresModel[] = [];
 
   //private activatedRoute : ActivatedRoute
   // modificador de acesso, nome da variável e Classe do objeto a ser injetado
   constructor(
     private activatedRoute: ActivatedRoute,
-    private professoresService: ProfessoresService,
-    private router:Router
+    private professoresService: ProfessoresService
   ) {
     // this.activatedRoute = new ActivatedRoute();
   }
