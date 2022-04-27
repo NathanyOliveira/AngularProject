@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfessoresService } from '../professores.service';
 
 @Component({
@@ -23,26 +23,45 @@ export class ListarComponent implements OnInit {
   // modificador de acesso, nome da variável e Classe do objeto a ser injetado
   constructor(
     private activatedRoute: ActivatedRoute,
-    private professoresService: ProfessoresService
+    private professoresService: ProfessoresService,
+    private router:Router
   ) {
     // this.activatedRoute = new ActivatedRoute();
   }
 
   ngOnInit(): void {
 
-    this.professoresService.getAll()
-      .subscribe(
-        (data) => {
-          console.log(data);
-          this.professores = data;
-        }
-      );
+    this.getAll();
 
     this.activatedRoute.params.subscribe(
       (data) => {
         console.log(data);
       }
     );
+  }
+
+  onDelete(id: number){
+    this.professoresService.delete(id)
+      .subscribe(
+        ()=>{
+          console.log(`deletou registro com id ${id}`);
+          //this.router.navigate(['/professores/#']);
+
+          this.getAll();
+        }
+      );
+  }
+
+  private getAll(){
+
+    this.professoresService.getAll()
+    .subscribe(
+      (data) => {
+        console.log(data);
+        this.professores = data;
+      }
+    );
+
   }
 
 }
